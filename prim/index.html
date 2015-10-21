@@ -11,7 +11,7 @@
 			padding:15px;
 			box-shadow:0px 2px 5px #666;
 		}
-		#grafo tr td{
+		table tr td{
 			width:30px;
 			text-align:center;
 		}
@@ -36,7 +36,17 @@
 			</table>
 			<hr />
 			<h3>Inicio:</h3>
-			<span></span>
+			<table border="1px">
+				<tr id="inicio_t">
+					<td>T:</td>
+				</tr>
+				<tr id="inicio_v">
+					<td>V:</td>
+				</tr>
+			</table>
+			<hr>
+			<h3>Interações:</h3>
+			<div id="interacoes"></div>
 		</div>
 		<script src="index.js"></script>
 	</body>

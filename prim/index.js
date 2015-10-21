@@ -170,30 +170,25 @@ for(var i = 0 ;i < origem.length ; i++) {
 // ------ Passo inicial
 
 
+var v = [];
 var t = [];
 // // Seta os valores de T
-for(var i =0 ;i < 6 ;i++) { 
+for(var i =0 ;i <= nos ;i++) { 
     if(i == 1) {
+        v[i] = "nulo";
         t[i] = i;
     } else {
         t[i] = "nulo";
-    }
-}
-
-var v = [];
-// // Seta os valores de V
-for(i = 0 ;i < 6 ;i++) { 
-    if(i == 1) {
-        v[i] = "nulo";
-    } else {
         v[i] = i;
     }
 }
 
-var inicio = document.getElementById("inicio");
-console.log("Início");
-console.log("T: "+t);
-console.log("V: "+v);
+var inicio_t = document.getElementById("inicio_t");
+var inicio_v = document.getElementById("inicio_v");
+for(i = 0; i <= nos; i++){
+    inicio_t.appendChild(document.createElement("td")).textContent = t[i];
+    inicio_v.appendChild(document.createElement("td")).textContent = v[i];
+}
 
 // // ------ Fim do passo inicial
 var total_nos = origem.length;
@@ -203,9 +198,9 @@ for(var x = 0; x < nos-1; x++) {
     var minimo1 = infinito;
     var aux1;
     for(i = 0 ; i < narcos ; i++) {
-       for(var j = 0 ; j < nos ; j++) {
+       for(var j = 0 ; j <= nos ; j++) {
             if(origem[i] == t[j]) {
-                for(var k = 0 ; k < nos ; k++) {
+                for(var k = 0 ; k <= nos ; k++) {
                     if(destino[i] == v[k]) {
                         if(custo[i] < minimo1) {
                             minimo1 = custo[i];
@@ -223,9 +218,9 @@ for(var x = 0; x < nos-1; x++) {
     var minimo2 = infinito;
     var aux2;
     for(var i = 0 ; i < narcos ; i++) {
-        for(var j = 0 ; j < nos ; j++) {
+        for(var j = 0 ; j <= nos ; j++) {
             if(destino[i] == t[j]) {
-                for(var k = 0 ; k < nos ; k++) {
+                for(var k = 0 ; k <= nos ; k++) {
                     if(origem[i] == v[k]) {
                         if(custo[i] < minimo2) {
                             minimo2 = custo[i];
@@ -237,22 +232,23 @@ for(var x = 0; x < nos-1; x++) {
         }
     }
 
-    console.log(""+(x+1)+"° iteração:");
+    var interacoes = document.getElementById('interacoes');
+    interacoes.appendChild(document.createElement("p")).textContent = (x+1)+"ª interação";
 
-    if(minimo2 < minimo1) {
+    if(minimo2 > minimo1) {
         minimo = minimo1;
         aux = aux1;
-        console.log("Aresta ("+origem[aux]+", "+destino[aux]+") escolhida de custo "+custo[aux]);
         t[destino[aux]] = destino[aux];
         v[destino[aux]] = "nulo";
     } else {
         minimo = minimo2;
         aux = aux2;
-        console.log("--Aresta ("+destino[aux]+", "+origem[aux]+") escolhida de custo "+custo[aux]);
         t[origem[aux]] = origem[aux];
         v[origem[aux]] = "nulo";   
     }
+    interacoes.appendChild(document.createElement("p")).textContent = "- Aresta ("+origem[aux]+", "+destino[aux]+") escolhida de custo "+custo[aux];
 
-    console.log("T: "+t);
-    console.log("V: "+v);
+    interacoes.appendChild(document.createElement("p")).textContent = "T: "+t;
+    interacoes.appendChild(document.createElement("p")).textContent = "V: "+v;
+    interacoes.appendChild(document.createElement("p")).textContent = "*";
 }
