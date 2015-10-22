@@ -145,34 +145,38 @@ var graph_array = [
 ];
 
 
-// <?php
-// function dijkstra($graph_array, $source, $target) {
-//     $vertices = array();
-//     $neighbours = array();
-//     foreach ($graph_array as $edge) {
-//         array_push($vertices, $edge[0], $edge[1]);
-//         $neighbours[$edge[0]][] = array("end" => $edge[1], "cost" => $edge[2]);
-//         $neighbours[$edge[1]][] = array("end" => $edge[0], "cost" => $edge[2]);
-//     }
-//     $vertices = array_unique($vertices);
+var source = "a";
+var target = "e";
+
+for(i = 0; i < vertices.length; i++){
+	for (l = 0; l < vertices.length; l++) {
+		if((i != l) && (vertices[i] == vertices[l])){
+			vertices.splice(i,1);
+			i--;
+		}
+	};
+}
+
+var dist = [];
+var previous = [];
+vertices.forEach(function(vertex){
+	dist[vertex] = 0;
+	previous[vertex] = null;
+});
+
  
-//     foreach ($vertices as $vertex) {
-//         $dist[$vertex] = INF;
-//         $previous[$vertex] = NULL;
-//     }
- 
-//     $dist[$source] = 0;
-//     $Q = $vertices;
-//     while (count($Q) > 0) {
+dist[source] = 0;
+Q = vertices;
+while (Q.length > 0) {
  
 //         // TODO - Find faster way to get minimum
-//         $min = INF;
-//         foreach ($Q as $vertex){
-//             if ($dist[$vertex] < $min) {
-//                 $min = $dist[$vertex];
-//                 $u = $vertex;
-//             }
-//         }
+	$min = INF;
+	foreach ($Q as $vertex){
+	    if ($dist[$vertex] < $min) {
+	        $min = $dist[$vertex];
+	        $u = $vertex;
+	    }
+	}
  
 //         $Q = array_diff($Q, array($u));
 //         if ($dist[$u] == INF or $u == $target) {
@@ -198,29 +202,6 @@ var graph_array = [
 //     array_unshift($path, $u);
 //     return $path;
 // }
- 
-// $graph_array = array(
-//                     array("a", "b", 7),
-//                     array("a", "c", 9),
-//                     array("a", "f", 14),
-//                     array("b", "c", 10),
-//                     array("b", "d", 15),
-//                     array("c", "d", 11),
-//                     array("c", "f", 2),
-//                     array("d", "e", 6),
-//                     array("e", "f", 9)
-//                );
-var graph_array = [
-	['a', 'b', 7],
-	['a', 'c', 9],
-	['a', 'f', 14],
-	['b', 'c', 10],
-	['b', 'd', 15],
-	['c', 'd', 11],
-	['c', 'f', 2],
-	['d', 'e', 6],
-	['e', 'f', 9],
-];
  
 // $path = dijkstra($graph_array, "a", "e");
  
