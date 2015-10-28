@@ -6,6 +6,7 @@
 				background-color:#EEE;
 				position:absolute;
 				margin-top: 20px;
+				margin-bottom: 20px;
 				left:14%;
 				width:70%;
 				padding:15px;

@@ -100,7 +100,15 @@ VERTICES.closePath();
 VERTICES.strokeStyle = c6;
 VERTICES.stroke();
 
-var colors = ["#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000"];
+var colors = {
+	AB: "#000", 
+	AE: "#000", 
+	BC: "#000",
+	BE: "#000",
+	CD: "#000",
+	DF: "#000",
+	EF: "#000"
+};
 
 // desenha as arestas
 
@@ -111,43 +119,43 @@ function drawARESTAS(){
 	ARESTAS.lineWidth = 2;
 	// 1-2
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[0];
+	ARESTAS.strokeStyle = colors.AB;
 	ARESTAS.moveTo(x+rr,y);
 	ARESTAS.lineTo(x+e-rr, y);
 	ARESTAS.stroke();
 	// 1-5
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[1];
+	ARESTAS.strokeStyle = colors.AE;
 	ARESTAS.moveTo(x+rd,y+rd);
 	ARESTAS.lineTo(x+e-rd, y+e-rd);
 	ARESTAS.stroke();
 	// 2-3
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[3];
+	ARESTAS.strokeStyle = colors.BC;
 	ARESTAS.moveTo(x+e+rr,y);
 	ARESTAS.lineTo(x+e+e-rr, y);
 	ARESTAS.stroke();
 	// 2-5
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[4];
+	ARESTAS.strokeStyle = colors.BE;
 	ARESTAS.moveTo(x+e,y+rr);
 	ARESTAS.lineTo(x+e, y+e-rr);
 	ARESTAS.stroke();
 	// 3-4
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[6];
+	ARESTAS.strokeStyle = colors.CD;
 	ARESTAS.moveTo(x+e+e+rr,y);
 	ARESTAS.lineTo(x+e+e+e-rr, y);
 	ARESTAS.stroke();
 	// 4-6
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[8];
+	ARESTAS.strokeStyle = colors.DF;
 	ARESTAS.moveTo(x+e+e+e,y+rr);
 	ARESTAS.lineTo(x+e+e+e, y+e-rr);
 	ARESTAS.stroke();
 	// 5-6
 	ARESTAS.beginPath();
-	ARESTAS.strokeStyle = colors[11];
+	ARESTAS.strokeStyle = colors.EF;
 	ARESTAS.moveTo(x+e+rr,y+e);
 	ARESTAS.lineTo(x+e+e+e-rr, y+e);
 	ARESTAS.stroke();
@@ -181,7 +189,6 @@ function indexOfSmallest(array) {
 			lowest = i;
 		}
 	}
-	// console.log(lowest)
 	return lowest;
 }
 
@@ -195,19 +202,24 @@ function indexOfInverse(index) {
 	return indexOfInverse;
 }
 
+var code = document.getElementById('code');
+
 var count = 0;
 function usePath(index) {
 	count++;
 	usedPaths.push(index);
 	usedPaths.push(indexOfInverse(index));
-	console.log(count);
-	console.log('Path ' + startPoint[index] + '' + endPoint[index] + ' percorrido');
+
+	code.appendChild(document.createElement("p")).textContent = count+"ª interação:";
+	code.appendChild(document.createElement("p")).textContent = 'Aresta ' + startPoint[index] + '-' + endPoint[index] + ' percorrido';
+
+	if(count != points.length - 1){
+		code.appendChild(document.createElement("br"));
+	}
 
 	var valor = indexOfInverse(index);
 
-	// problema e pq o index muda de acordo com o array q vai diminuindo
-	console.log(index);
-	colors[index] = "#F00";
+	colors[startPoint[index]+''+endPoint[index]] = "#F00";
 	drawARESTAS();
 
 	startPoint.splice(index, 1);
