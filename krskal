@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grafos do Ze</title>
+</head>
+<body>
+	<h1>Grafos do Ze</h1>	
+</body>
+</html>
+
+<script type="text/javascript">
+	var points     = ['A', 'B', 'C', 'D', 'E'];
+	var startPoint = ['A','A','A','B','B','B','C','C','C','D','D','E','E','E'];
+	var endPoint   = ['B','C','E','A','C','E','A','B','D','C','E','A','B','D'];
+	var pathWeight = [6, 5, 1, 6, 4, 1, 5, 6, 3, 3, 2, 1, 1, 2];
+	var usedPaths  = [];
+
+	// var indexOfStartingPoint = indexOfSmallest(pathWeight)
+	// usePath(indexOfStartingPoint);
+
+	drawPath();
+
+	function drawPath() {
+		console.log(startPoint)
+		console.log(endPoint)
+		// console.log(pathWeight)
+		for (var i = 0; i < points.length - 1; i++) {
+			usePath(indexOfSmallest(pathWeight))
+		};
+	}
+
+	function indexOfSmallest(array) {
+		var lowest = 0;
+		for (var i = 1; i < array.length; i++) {
+			if (array[i] < array[lowest]) {
+				lowest = i;
+			}
+		}
+		// console.log(lowest)
+		return lowest;
+	}
+
+	function indexOfInverse(index) {
+		var indexOfInverse;
+		for (var i = 0; i < startPoint.length; i++) {
+			if (startPoint[i] == endPoint[index]) {
+				for (var j = 0; j < endPoint.length ; j++) {
+					if(endPoint[j] == startPoint[index]) {
+						indexOfInverse = j;
+					}
+				};
+			}
+		}
+		return indexOfInverse;
+	}
+
+	function usePath(index) {
+		usedPaths.push(index);
+		usedPaths.push(indexOfInverse(index)-1);
+
+		console.log(index);
+		console.log(indexOfInverse(index));
+
+		if(index > indexOfInverse(index)) {
+			console.log('IF')
+			startPoint.splice(index, 1);
+			endPoint.splice(index, 1);
+			pathWeight.splice(index, 1);
+		} else {
+			console.log('ELSE')
+			startPoint.splice(indexOfInverse(index)-1, 1);
+			endPoint.splice(indexOfInverse(index)-1, 1);
+			pathWeight.splice(indexOfInverse(index)-1, 1);
+
+		}
+
+		startPoint.splice(index, 1);
+		endPoint.splice(index, 1);
+		pathWeight.splice(index, 1);
+		
+
+		
+		// console.log(startPoint)
+		// console.log(endPoint)
+
+		var valor = indexOfInverse(index)
+
+		// // console.log('Path ' + startPoint[index] + '' + endPoint[index] + ' percorrido');
+		// usedPaths.push(index);
+		// usedPaths.push(indexOfInverse(index));
+		
+		// startPoint.splice(index, 1);
+		// endPoint.splice(index, 1);
+		// pathWeight.splice(index, 1);
+
+		// if (index > indexOfInverse(index)) {
+		// 	startPoint.splice(indexOfInverse(index), 1);
+		// 	endPoint.splice(indexOfInverse(index), 1);
+		// 	pathWeight.splice(indexOfInverse(index), 1);
+		// } else {
+		// 	startPoint.splice(valor-1 , 1);
+		// 	endPoint.splice(valor-1, 1);
+		// 	pathWeight.splice(valor-1, 1);
+		// };
+
+		// console.log('---------');
+		// console.log(startPoint)
+		// console.log(endPoint)
+		// console.log(pathWeight)
+		
+
+		
+	}
+
+</script>
